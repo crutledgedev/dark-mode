@@ -5,7 +5,7 @@ import {useLocalStorage} from './useLocalStorage'
 export const useDarkMode = (mode) => {
 
     const [toggle, setToggle] = useLocalStorage( 'darkmode', mode)
-    console.log(toggle)
+    console.log("toggle", toggle)
 
     useEffect(()=>{
         if (toggle === true){
