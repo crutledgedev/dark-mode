@@ -1,21 +1,42 @@
-import {useState} from 'react'
+import { useState } from 'react';
 
-export const useLocalStorage = (key, initialValue) => {
+export const useLocalStorage = (key, initialState = '') => {
+  const [storedValue, setStoredValue] = useState(() => {
+    if (JSON.parse(window.localStorage.getItem(key))) {
+      return JSON.parse(window.localStorage.getItem(key));
+    } else {
+      window.localStorage.setItem(key, JSON.stringify(initialState));
+      return initialState;
+    }
+  });
 
-    // window.localStorage.setItem(key, initialValue)
+  const setValue = value => {
+    setStoredValue(value);
+    window.localStorage.setItem(key, JSON.stringify(value));
+  };
 
-    const [storedValue, setStoredValue] = useState(() => {
-        const item = window.localStorage.getItem(key);
-        console.log("item", item)
-        return item ? JSON.parse(item) : initialValue;
-      });
-
-
-    const setValue = value => {
-        setStoredValue(value);
-        window.localStorage.setItem(key, JSON.stringify(value))
-    };
-
-    return [storedValue, setValue]
-
+  return [storedValue, setValue];
 };
+
+
+// import {useState} from 'react'
+
+// export const useLocalStorage = (key, initialValue) => {
+
+//     // window.localStorage.setItem(key, initialValue)
+
+//     const [storedValue, setStoredValue] = useState(() => {
+//         const item = window.localStorage.getItem(key);
+//         console.log("item", item)
+//         return item ? JSON.parse(item) : initialValue;
+//       });
+
+
+//     const setValue = value => {
+//         setStoredValue(value);
+//         window.localStorage.setItem(key, JSON.stringify(value))
+//     };
+
+//     return [storedValue, setValue]
+
+// };
