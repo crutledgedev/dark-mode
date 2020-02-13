@@ -17,7 +17,7 @@ export const useLocalStorage = (key, initialState = '') => {
 
   return [storedValue, setValue];
 };
-
+//old broken code below - new code from guided project reference above
 
 // import {useState} from 'react'
 
